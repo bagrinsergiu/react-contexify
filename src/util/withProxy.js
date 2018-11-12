@@ -1,5 +1,5 @@
-import React, { PureComponent } from 'react';
-import { render, unmountComponentAtNode } from 'react-dom';
+import React, { PureComponent } from "react";
+import { render, unmountComponentAtNode } from "react-dom";
 
 export default function(Component) {
   return class WithProxy extends PureComponent {
@@ -20,11 +20,11 @@ export default function(Component) {
 
     removeFromBody() {
       unmountComponentAtNode(this.node);
-      document.body.removeChild(this.node);
+      this.node.parentElement && this.node.parentElement.removeChild(this.node);
     }
 
     appendToBody(props) {
-      const container = document.createElement('div');
+      const container = document.createElement("div");
       this.node = document.body.appendChild(container);
       render(<Component {...props} key={props.id} />, this.node);
     }
