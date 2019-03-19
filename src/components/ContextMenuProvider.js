@@ -35,14 +35,16 @@ class ContextMenuProvider extends Component {
   childrenRefs = [];
 
   handleEvent = e => {
-    e.preventDefault();
-    e.stopPropagation();
-    eventManager.emit(
-      `display::${this.props.id}`,
-      e.nativeEvent,
-      this.childrenRefs.length === 1 ? this.childrenRefs[0] : this.childrenRefs,
-      this.props.data
-    );
+    if (!e.shiftKey) {
+      e.preventDefault();
+      e.stopPropagation();
+      eventManager.emit(
+        `display::${this.props.id}`,
+        e.nativeEvent,
+        this.childrenRefs.length === 1 ? this.childrenRefs[0] : this.childrenRefs,
+        this.props.data
+      );
+    }
   };
 
   getChildren() {
